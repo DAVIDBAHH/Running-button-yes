@@ -1,0 +1,45 @@
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QApplication,QMainWindow,QMessageBox
+from PyQt5.QtGui import QFont
+from random import randint
+from tkinter.messagebox import askokcancel
+import sys
+class Window(QMainWindow):
+    def __init__(self):
+        super(Window,self).__init__()
+        self.setWindowTitle("Survey")
+        self.setGeometry(300, 250, 350, 200)
+        self.main_text = QtWidgets.QLabel(self)
+        self.main_text.setText("Do you want to increase your salary?")
+        self.main_text.move(40,20)
+        self.main_text.setFont(QFont("Arial",13))
+        self.main_text.adjustSize()
+        self.yes_btn = QtWidgets.QPushButton(self)
+        self.yes_btn.move(40, 70)
+        self.yes_btn.setText("Yes")
+        self.yes_btn.setFixedWidth(200)
+        self.yes_btn.setFixedSize(70,40)
+        self.yes_btn.clicked.connect(self.yes)
+        self.no_btn = QtWidgets.QPushButton(self)
+        self.no_btn.move(220, 70)
+        self.no_btn.setText("No")
+        self.no_btn.setFixedWidth(200)
+        self.no_btn.setFixedSize(70, 40)
+        self.no_btn.clicked.connect(self.no)
+    def yes(self):
+        self.yes_btn.move(randint(0,250),randint(0,100))
+    def no(self):
+        self.ask = QMessageBox()
+        self.ask.setWindowTitle("Survey")
+        self.ask.setText("Thank you, your vote has been accepted.")
+        self.ask.setIcon(QMessageBox.Information)
+        self.ask.setStandardButtons(QMessageBox.Ok)
+        self.ask.exec_()
+        exit()
+def application():
+    app = QApplication(sys.argv)
+    window = Window()
+    window.show()
+    sys.exit(app.exec_())
+if __name__ == "__main__":
+    application()
